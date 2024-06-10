@@ -5,7 +5,8 @@
     "version": "1.0.0",
     "description": "A simple demo for zod-openapi",
     "license": {
-      "name": "MIT"
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
     }
   },
   "servers": [
@@ -24,13 +25,35 @@
     }
   ],
   "paths": {
-    "/api/v1": {
-      "/admins": {
-        "post": {
-          "operationId": "createAdmin",
-          "summary": "Create an admin",
-          "description": "Create an admin",
-          "requestBody": {
+    "/api/v1/admins": {
+      "post": {
+        "operationId": "createAdmin",
+        "summary": "Create an admin",
+        "description": "Create an admin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "_def": {
+                  "unknownKeys": "strip",
+                  "catchall": {
+                    "_def": {
+                      "typeName": "ZodNever"
+                    }
+                  },
+                  "typeName": "ZodObject",
+                  "openapi": {
+                    "description": "The properties required to create a new admin user"
+                  }
+                },
+                "_cached": null
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Admin created",
             "content": {
               "application/json": {
                 "schema": {
@@ -42,85 +65,8 @@
                       }
                     },
                     "typeName": "ZodObject",
-                    "openapi": {
-                      "description": "The properties required to create a new admin user"
-                    }
-                  },
-                  "_cached": null
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "Admin created",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "_def": {
-                      "unknownKeys": "strip",
-                      "catchall": {
-                        "_def": {
-                          "typeName": "ZodNever"
-                        }
-                      },
-                      "typeName": "ZodObject",
-                      "extendMetadata": {
-                        "extends": {
-                          "_def": {
-                            "unknownKeys": "strip",
-                            "catchall": {
-                              "_def": {
-                                "typeName": "ZodNever"
-                              }
-                            },
-                            "typeName": "ZodObject"
-                          },
-                          "_cached": null
-                        }
-                      },
-                      "openapi": {
-                        "description": "The full properties of an admin user"
-                      }
-                    },
-                    "_cached": null
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid information provided, please check the required fields and try again",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "_def": {
-                      "unknownKeys": "strip",
-                      "catchall": {
-                        "_def": {
-                          "typeName": "ZodNever"
-                        }
-                      },
-                      "typeName": "ZodObject"
-                    },
-                    "_cached": null
-                  }
-                }
-              }
-            }
-          }
-        },
-        "get": {
-          "operationId": "getAdmins",
-          "summary": "List all admins",
-          "description": "List all admins",
-          "responses": {
-            "200": {
-              "description": "List of admins",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "_def": {
-                      "type": {
+                    "extendMetadata": {
+                      "extends": {
                         "_def": {
                           "unknownKeys": "strip",
                           "catchall": {
@@ -128,34 +74,87 @@
                               "typeName": "ZodNever"
                             }
                           },
-                          "typeName": "ZodObject",
-                          "extendMetadata": {
-                            "extends": {
-                              "_def": {
-                                "unknownKeys": "strip",
-                                "catchall": {
-                                  "_def": {
-                                    "typeName": "ZodNever"
-                                  }
-                                },
-                                "typeName": "ZodObject"
-                              },
-                              "_cached": null
-                            }
-                          },
-                          "openapi": {
-                            "description": "The full properties of an admin user"
-                          }
+                          "typeName": "ZodObject"
                         },
                         "_cached": null
-                      },
-                      "minLength": null,
-                      "maxLength": null,
-                      "exactLength": null,
-                      "typeName": "ZodArray",
-                      "openapi": {
-                        "description": "A list of admin users"
                       }
+                    },
+                    "openapi": {
+                      "description": "The full properties of an admin user"
+                    }
+                  },
+                  "_cached": null
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid information provided, please check the required fields and try again",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "_def": {
+                    "unknownKeys": "strip",
+                    "catchall": {
+                      "_def": {
+                        "typeName": "ZodNever"
+                      }
+                    },
+                    "typeName": "ZodObject"
+                  },
+                  "_cached": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getAdmins",
+        "summary": "List all admins",
+        "description": "List all admins",
+        "responses": {
+          "200": {
+            "description": "List of admins",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "_def": {
+                    "type": {
+                      "_def": {
+                        "unknownKeys": "strip",
+                        "catchall": {
+                          "_def": {
+                            "typeName": "ZodNever"
+                          }
+                        },
+                        "typeName": "ZodObject",
+                        "extendMetadata": {
+                          "extends": {
+                            "_def": {
+                              "unknownKeys": "strip",
+                              "catchall": {
+                                "_def": {
+                                  "typeName": "ZodNever"
+                                }
+                              },
+                              "typeName": "ZodObject"
+                            },
+                            "_cached": null
+                          }
+                        },
+                        "openapi": {
+                          "description": "The full properties of an admin user"
+                        }
+                      },
+                      "_cached": null
+                    },
+                    "minLength": null,
+                    "maxLength": null,
+                    "exactLength": null,
+                    "typeName": "ZodArray",
+                    "openapi": {
+                      "description": "A list of admin users"
                     }
                   }
                 }
