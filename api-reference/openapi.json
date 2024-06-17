@@ -26,137 +26,224 @@
   ],
   "paths": {
     "/api/v1/admins": {
-      "post": {
-        "operationId": "createAdmin",
-        "summary": "Create an admin",
-        "description": "Create an admin",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "_def": {
-                  "unknownKeys": "strip",
-                  "catchall": {
-                    "_def": {
-                      "typeName": "ZodNever"
-                    }
-                  },
-                  "typeName": "ZodObject",
-                  "openapi": {
-                    "description": "The properties required to create a new admin user"
-                  }
-                },
-                "_cached": null
-              }
-            }
-          }
-        },
+      "get": {
         "responses": {
-          "201": {
-            "description": "Admin created",
+          "200": {
+            "description": "200 OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "_def": {
-                    "unknownKeys": "strip",
-                    "catchall": {
-                      "_def": {
-                        "typeName": "ZodNever"
-                      }
-                    },
-                    "typeName": "ZodObject",
-                    "extendMetadata": {
-                      "extends": {
-                        "_def": {
-                          "unknownKeys": "strip",
-                          "catchall": {
-                            "_def": {
-                              "typeName": "ZodNever"
-                            }
-                          },
-                          "typeName": "ZodObject"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "slug": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+                        "minLength": 1,
+                        "maxLength": 100,
+                        "description": "URL-friendly alphanumeric string with no spaces, special characters, or capital letters.",
+                        "example": "my-slug"
+                      },
+                      "owner": {
+                        "type": "string",
+                        "format": "email"
+                      },
+                      "language": {
+                        "type": "string",
+                        "enum": [
+                          "en",
+                          "ja",
+                          "pt",
+                          "es",
+                          "sw",
+                          "fr",
+                          "th",
+                          "zh"
+                        ],
+                        "default": "en",
+                        "description": "Language code.",
+                        "example": "en"
+                      },
+                      "country": {
+                        "type": "string",
+                        "enum": ["us", "jp"],
+                        "default": "us",
+                        "description": "Country code.",
+                        "example": "us"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "ISO 8601 formatted timestamp.",
+                        "example": "2021-01-01T00:00:00.000Z"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "ISO 8601 formatted timestamp.",
+                        "example": "2021-01-01T00:00:00.000Z"
+                      },
+                      "settings": {
+                        "type": "object",
+                        "properties": {
+                          "website": {
+                            "type": "object"
+                          }
                         },
-                        "_cached": null
+                        "required": ["website"]
                       }
                     },
-                    "openapi": {
-                      "description": "The full properties of an admin user"
-                    }
+                    "required": [
+                      "name",
+                      "slug",
+                      "owner",
+                      "language",
+                      "country",
+                      "created_at",
+                      "updated_at",
+                      "settings"
+                    ],
+                    "description": "Representation of a single instance resource."
                   },
-                  "_cached": null
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid information provided, please check the required fields and try again",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "_def": {
-                    "unknownKeys": "strip",
-                    "catchall": {
-                      "_def": {
-                        "typeName": "ZodNever"
-                      }
-                    },
-                    "typeName": "ZodObject"
-                  },
-                  "_cached": null
+                  "description": "List of instance resources."
                 }
               }
             }
           }
         }
       },
-      "get": {
-        "operationId": "getAdmins",
-        "summary": "List all admins",
-        "description": "List all admins",
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "slug": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "description": "URL-friendly alphanumeric string with no spaces, special characters, or capital letters.",
+                    "example": "my-slug"
+                  },
+                  "owner": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "language": {
+                    "type": "string",
+                    "enum": ["en", "ja", "pt", "es", "sw", "fr", "th", "zh"],
+                    "default": "en",
+                    "description": "Language code.",
+                    "example": "en"
+                  },
+                  "country": {
+                    "type": "string",
+                    "enum": ["us", "jp"],
+                    "default": "us",
+                    "description": "Country code.",
+                    "example": "us"
+                  },
+                  "settings": {
+                    "type": "object",
+                    "properties": {
+                      "website": {
+                        "type": "object"
+                      }
+                    },
+                    "required": ["website"]
+                  }
+                },
+                "required": ["name", "slug", "owner", "settings"],
+                "description": "Representation of a new instance resource."
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "List of admins",
+            "description": "200 OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "_def": {
-                    "type": {
-                      "_def": {
-                        "unknownKeys": "strip",
-                        "catchall": {
-                          "_def": {
-                            "typeName": "ZodNever"
-                          }
-                        },
-                        "typeName": "ZodObject",
-                        "extendMetadata": {
-                          "extends": {
-                            "_def": {
-                              "unknownKeys": "strip",
-                              "catchall": {
-                                "_def": {
-                                  "typeName": "ZodNever"
-                                }
-                              },
-                              "typeName": "ZodObject"
-                            },
-                            "_cached": null
-                          }
-                        },
-                        "openapi": {
-                          "description": "The full properties of an admin user"
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "slug": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "description": "URL-friendly alphanumeric string with no spaces, special characters, or capital letters.",
+                      "example": "my-slug"
+                    },
+                    "owner": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "language": {
+                      "type": "string",
+                      "enum": ["en", "ja", "pt", "es", "sw", "fr", "th", "zh"],
+                      "default": "en",
+                      "description": "Language code.",
+                      "example": "en"
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": ["us", "jp"],
+                      "default": "us",
+                      "description": "Country code.",
+                      "example": "us"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "ISO 8601 formatted timestamp.",
+                      "example": "2021-01-01T00:00:00.000Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "ISO 8601 formatted timestamp.",
+                      "example": "2021-01-01T00:00:00.000Z"
+                    },
+                    "settings": {
+                      "type": "object",
+                      "properties": {
+                        "website": {
+                          "type": "object"
                         }
                       },
-                      "_cached": null
-                    },
-                    "minLength": null,
-                    "maxLength": null,
-                    "exactLength": null,
-                    "typeName": "ZodArray",
-                    "openapi": {
-                      "description": "A list of admin users"
+                      "required": ["website"]
                     }
-                  }
+                  },
+                  "required": [
+                    "name",
+                    "slug",
+                    "owner",
+                    "language",
+                    "country",
+                    "created_at",
+                    "updated_at",
+                    "settings"
+                  ],
+                  "description": "Representation of a single instance resource."
                 }
               }
             }
