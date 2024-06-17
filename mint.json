@@ -51,11 +51,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
+      "pages": ["introduction", "quickstart", "development"]
     },
     {
       "group": "Essentials",
@@ -71,7 +67,11 @@
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/introduction",
+        "api-reference/get-apiv1admins",
+        "api-reference/post-apiv1admins",
+        "api-reference/get-apiv1admins-1",
+        "api-reference/put-apiv1admins"
       ]
     },
     {

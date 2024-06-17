@@ -250,6 +250,229 @@
           }
         }
       }
+    },
+    "/api/v1/admins/{admin_id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the instance"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "slug": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "description": "URL-friendly alphanumeric string with no spaces, special characters, or capital letters.",
+                      "example": "my-slug"
+                    },
+                    "owner": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "language": {
+                      "type": "string",
+                      "enum": ["en", "ja", "pt", "es", "sw", "fr", "th", "zh"],
+                      "default": "en",
+                      "description": "Language code.",
+                      "example": "en"
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": ["us", "jp"],
+                      "default": "us",
+                      "description": "Country code.",
+                      "example": "us"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "ISO 8601 formatted timestamp.",
+                      "example": "2021-01-01T00:00:00.000Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "ISO 8601 formatted timestamp.",
+                      "example": "2021-01-01T00:00:00.000Z"
+                    },
+                    "settings": {
+                      "type": "object",
+                      "properties": {
+                        "website": {
+                          "type": "object"
+                        }
+                      },
+                      "required": ["website"]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "slug",
+                    "owner",
+                    "language",
+                    "country",
+                    "created_at",
+                    "updated_at",
+                    "settings"
+                  ],
+                  "description": "Representation of a single instance resource."
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "slug": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "description": "URL-friendly alphanumeric string with no spaces, special characters, or capital letters.",
+                    "example": "my-slug"
+                  },
+                  "owner": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "language": {
+                    "type": "string",
+                    "enum": ["en", "ja", "pt", "es", "sw", "fr", "th", "zh"],
+                    "default": "en",
+                    "description": "Language code.",
+                    "example": "en"
+                  },
+                  "country": {
+                    "type": "string",
+                    "enum": ["us", "jp"],
+                    "default": "us",
+                    "description": "Country code.",
+                    "example": "us"
+                  },
+                  "settings": {
+                    "type": "object",
+                    "properties": {
+                      "website": {
+                        "type": "object"
+                      }
+                    },
+                    "required": ["website"]
+                  }
+                },
+                "description": "The fields you want to change"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "slug": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "description": "URL-friendly alphanumeric string with no spaces, special characters, or capital letters.",
+                      "example": "my-slug"
+                    },
+                    "owner": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "language": {
+                      "type": "string",
+                      "enum": ["en", "ja", "pt", "es", "sw", "fr", "th", "zh"],
+                      "default": "en",
+                      "description": "Language code.",
+                      "example": "en"
+                    },
+                    "country": {
+                      "type": "string",
+                      "enum": ["us", "jp"],
+                      "default": "us",
+                      "description": "Country code.",
+                      "example": "us"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "ISO 8601 formatted timestamp.",
+                      "example": "2021-01-01T00:00:00.000Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "ISO 8601 formatted timestamp.",
+                      "example": "2021-01-01T00:00:00.000Z"
+                    },
+                    "settings": {
+                      "type": "object",
+                      "properties": {
+                        "website": {
+                          "type": "object"
+                        }
+                      },
+                      "required": ["website"]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "slug",
+                    "owner",
+                    "language",
+                    "country",
+                    "created_at",
+                    "updated_at",
+                    "settings"
+                  ],
+                  "description": "Representation of a single instance resource."
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
